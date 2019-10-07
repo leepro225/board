@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import TOC from "./components/TOC.js"
-import Content from "./components/content.js"
-import Subject from "./components/subject.js"
+import ReadContent from "./components/ReadContent.js"
+import CreateContent from "./components/CreateContent.js"
+import Subject from "./components/Subject.js"
+import Control from "./components/Control.js"
 import './App.css';
+import { isPureish } from '@babel/types';
 
 class App extends Component {
   constructor(props) {
@@ -21,11 +24,12 @@ class App extends Component {
   }
 
   render() {
-    var _title, _desc = null;
+    var _title, _desc, _article = null;
 
     if (this.state.mode === 'welcome') {
       _title = this.state.welcome.title;
       _desc = this.state.welcome.desc;
+      _article = <ReadContent title={_title} desc={_desc}></ReadContent>
     } else if (this.state.mode === 'read') {
       var i = 0;
 
@@ -35,12 +39,15 @@ class App extends Component {
         if (data.id === this.state.selected_content_id) {
           _title = data.title;
           _desc = data.desc;
-
+          
           break;
         }
-
+        
         i = i + 1;
       }
+      _article = <ReadContent title={_title} desc={_desc}></ReadContent>
+    } else if (this.state.mode === 'create') {
+      _article = <CreateContent></CreateContent>
     }
 
     return (
@@ -62,7 +69,12 @@ class App extends Component {
           }.bind(this)}
           data={this.state.contents}
           ></TOC>
-          <Content title={_title} desc={_desc}></Content>
+          <Control onChangeMode={function(_mode) {
+            this.setState({
+              mode:_mode
+            });
+          }.bind(this)}></Control>
+          {_article}
       </div>
     );
   }
