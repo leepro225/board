@@ -1,30 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+    <meta charset="utf-8"> <!--이 파일이 어떤 언어로 인코딩되어야 하는지 파일 첫줄부터 512byte이내에 위치할 것을 권장-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!--IE브라우저 중 가장 최신 표준모드를 선택하라-->
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!--브라우저의 너비를 장치의 너비로 지정, 페이지가 처음 로딩될 때 줌 레벨을 1로 조정, 즉 CSS픽셀과 기기의 픽셀 간의 1:1 관계를 형성-->
+    <title>hello, this is ha-co!</title>
+    
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700,900&display=swap" rel="stylesheet">
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    <!-- font awesome -->
+    <script src="https://kit.fontawesome.com/a4726a441c.js"></script>  
+
+    <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다. bootstrap css보다 우선 순위에 놓는다.) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    <!-- bootstrap : 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    
+    <!--  bootstrap : 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    
+    <!--  bootstrap : 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <!-- 구글 프리터 -->
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+
+    <!-- include summernote css/js -->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -40,4 +45,104 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script>
+
+    $(document).ready(function(){
+
+        var burger = $('.menu-trigger');
+
+        burger.each(function(index){
+            var $this = $(this);
+            
+            $this.on('click', function(e){
+                e.preventDefault();
+                $(this).toggleClass('active-li');
+            })
+        });
+        
+        $(".menu-trigger").click(function(){
+            $(".menuBg").slideToggle("500");
+            $(".menu-list-pc").slideToggle("slow");       
+        });
+
+        $(".totop").hide();
+
+        $(".right").scroll(function(){
+
+            if ($(this).scrollTop()>300) {
+                $('.totop').fadeIn();
+            } else {
+                $('.totop').fadeOut();
+            }
+        });
+
+        $('.totop a').click(function (e) {
+            e.preventDefault();
+
+            $(".right").animate({scrollTop: 0}, 500);
+        });
+
+  
+        $('.delete-trigger').on('click', function() {
+            $('.haco-delete-modal-wrapper').toggleClass('open');
+            return false;
+        });
+
+
+        $('.write-trigger').on('click', function() {
+            $('.haco-write-modal-wrapper').toggleClass('open');
+            return false;
+        });
+
+      
+        $('.404-trigger').on('click', function() {
+            $('.haco-404-modal-wrapper').toggleClass('open');
+            
+            return false;
+        });
+
+     
+        $('.signIn-trigger').on('click', function() {
+            $('.haco-signIn-modal-wrapper').toggleClass('open');
+            
+            return false;
+        });
+     
+        $('.signUp-trigger').on('click', function() {
+            $('.haco-signUp-modal-wrapper').toggleClass('open');
+            $('.haco-signIn-modal-wrapper').toggleClass('open');
+            
+            return false;
+        });
+
+        
+        var jObj = $('.selectUI');
+        var oObj = jObj.find('.selectOption > li');
+        var str = jObj.find('.selCheck');
+        
+        jObj.children().click(function(e) {
+            e.preventDefault();
+            
+            $(this).next('.selectOption').slideToggle();
+            if(!$(this).hasClass('selectON')){
+                $(this).addClass('selectON');
+            } else {
+                $(this).removeClass('selectON');
+            }
+        });
+        
+        oObj.click(function(e) {
+            e.preventDefault();
+            
+            str.html($(this).text());
+            $(this).parent().slideUp();
+            $(this).parent().prev().removeClass('selectON');
+        }); 
+        
+        $('#summernote').summernote({
+            height: '40vh',
+            lang: 'ko-KR' 
+        });  
+    });
+ </script>
 </html>

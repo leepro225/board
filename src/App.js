@@ -3,6 +3,7 @@ import TOC from "./components/TOC.js"
 import ReadContent from "./components/ReadContent.js"
 import CreateContent from "./components/CreateContent.js"
 import UpdateContent from "./components/UpdateContent.js"
+import MainContent from "./components/MainContent.js"
 import Subject from "./components/Subject.js"
 import Control from "./components/Control.js"
 import './App.css';
@@ -91,7 +92,8 @@ class App extends Component {
     
     return (
       <div className="App">
-          <Subject 
+        <MainContent></MainContent>
+          {/* <Subject 
           title={this.state.subject.title} 
           sub={this.state.subject.sub}
           onChangePage={function() {
@@ -132,7 +134,7 @@ class App extends Component {
               mode: _mode
             });
           }.bind(this)}></Control>
-          {this.getContent()}
+          {this.getContent()} */}
       </div>
     );
   }
