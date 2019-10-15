@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import Title from "./Title.js"
 import TOC from "./TOC.js"
-import WriteControl from "./WriteControl.js"
+import Controls from "./Controls.js"
 import ModalWrite from "./ModalWrite.js"
+import ModalUpdate from "./ModalUpdate.js"
+
 
 
 
 class RightContent extends Component {
     constructor(props) {
         super(props);
-        this.max_content_id = 10;
+        this.max_content_id = 3;
         this.state = {
           mode : 'read',
-          class : 'haco-write-modal-wrapper',
+          modalClass : 'haco-write-modal-wrapper',
           selected_content_id:1,
           contents : [
             {id:1, title:'html', desc:'HTML is HyperText...'},
@@ -20,10 +21,27 @@ class RightContent extends Component {
             {id:3, title:'JavaScript', desc:'JavaScript is HyperText...'}
           ]
         }
-      }
+    }
 
-    
+    getUpdateData() {
+        var i = 0;
+        while(i < this.state.contents.length) {
+            var data = this.state.contents[i];
+
+            if(data.id === this.state.selected_content_id) {
+                return data;
+                break;
+            }
+            i = i + 1;
+        }
+    }
+      
     render() {
+
+        if (this.state.mode === 'update') {
+            var _content = this.getUpdateData();
+        } 
+
       return (
         <div class="col-md-9 right">
             <div class="row">
@@ -51,12 +69,42 @@ class RightContent extends Component {
                     </ul>
                 </div>
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    <WriteControl onChangeMode={function(_mode) {
-                                                    this.setState({mode: _mode, class: 'haco-write-modal-wrapper open'});
+                    <Controls onChangeMode={function(_mode) {
+                                                    this.setState({mode: _mode, modalClass: 'haco-write-modal-wrapper open'});
                                                     }.bind(this)
                                                 }>
-                    </WriteControl> 
-                    <ModalWrite data={this.state.class}></ModalWrite>
+                    </Controls> 
+                    <ModalWrite data={this.state.modalClass}
+                                onChangeClass={function(_mode) {
+                                                    this.setState({mode: _mode, modalClass: 'haco-write-modal-wrapper'});
+                                                    }.bind(this)
+                                             }
+                                onSubmit={function(_title, _desc) {
+                                    this.max_content_id = this.max_content_id + 1;
+                                    var _contents = this.state.contents.concat(
+                                        {id:this.max_content_id, title:_title, desc: _desc}
+                                    )
+                                    this.setState({
+                                        contents:_contents
+                                    });
+                                }.bind(this)}>
+                    </ModalWrite>
+                    <ModalUpdate data={this.state.modalClass}
+                                onChangeClass={function(_mode) {
+                                                    this.setState({mode: _mode, modalClass: 'haco-write-modal-wrapper'});
+                                                    }.bind(this)
+                                                }
+                                content={_content}
+                                onSubmit={function(_title, _desc) {
+                                    this.max_content_id = this.max_content_id + 1;
+                                    var _contents = this.state.contents.concat(
+                                        {id:this.max_content_id, title:_title, desc: _desc}
+                                    )
+                                    this.setState({
+                                        contents:_contents
+                                    });
+                                }.bind(this)}>
+                    </ModalUpdate>
                     <TOC onChangePage={function(id) {
                         this.setState({
                             selected_content_id:Number(id)

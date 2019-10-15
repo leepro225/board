@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import alert from '../alert.png';
 
-class ModalWrite extends Component {
-
+class ModalUpdate extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+        }
+    }
+    
     render() {
-      var data = this.props.data;
       
       return (
-
-        <div className={data}>
+        <div className={this.props.data}>
             <div class="haco-write-modal">
                 <div class="haco-write-modal-head">
                     <img src={alert} class="alertPng"></img><span class="modalMassage">Don't forget to push save botton!</span>
@@ -22,7 +25,7 @@ class ModalWrite extends Component {
                 </div>
                 <div class="haco-write-modal-content">
                     <form 
-                        action="/create_process" 
+                        action="/update_process" 
                         method="post"
                         onSubmit={function(e) {
                             e.preventDefault();
@@ -32,12 +35,25 @@ class ModalWrite extends Component {
                     >
                         <span class="modalQuestion">Title</span>
                         <div class="modalUnderline">
-                            <input type="text" name="title" placeholder="write title here..." style={{
-                                border:'0px',width:'100%'
-                                }}
+                            <input type="text" 
+                                   name="title" 
+                                   placeholder="write title here..." 
+                                   style={{border:'0px',width:'100%'}}
+                                   value={this.state.title}
+                                   onChange={function(e) {
+                                        this.setState({title:e.target.value});
+                                   }.bind(this)}
                                 ></input><br/>
                         </div>
-                        <textarea name="editordata" placeholder="description" style={{width:'100%', height:'400px', marginTop:'20px'}}></textarea>
+                        <textarea name="editordata" 
+                                  placeholder="description" 
+                                  style={{width:'100%', height:'400px', marginTop:'20px'}}
+                                  value={this.state.desc}
+                                  onChange={function(e) {
+                                    this.setState({desc:e.target.value});
+                                  }.bind(this)}
+                                  >
+                        </textarea>
                         <input type="submit" class="write-trigger modalAnswer"></input>
                     </form>
                 </div>
@@ -48,4 +64,4 @@ class ModalWrite extends Component {
     }
 }
 
-export default ModalWrite;
+export default ModalUpdate;

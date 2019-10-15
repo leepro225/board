@@ -33,10 +33,13 @@ class TOC extends Component {
           </div>
           <div id={"collapse" + data[i].id} class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                 <div class="haco-panel-body">
-                    <div class="libraryEditBox"><a href="#" class="addList haco-delete-btn delete-trigger"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a><a href="#" class="addList write-trigger"><span class="glyphicon glyphicon-erase" aria-hidden="true"></span></a></div>
-                      {data[i].title}
-                      {data[i].desc}
-                    <br/>
+                    <div class="libraryEditBox">
+                      <a href="#" class="addList haco-delete-btn delete-trigger">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                      </a>                    
+                    </div>
+                    {data[i].desc}
+                  <br/>
                 </div>
             </div>
           </div>
