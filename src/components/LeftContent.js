@@ -17,7 +17,7 @@ class LeftContent extends Component {
                 <div class="menuBg">
                     <div class="menu-list-pc">
                         <ul>
-                            <li><a href="http://ha-co.net/main.html">skills</a></li>
+                            <li><a href="http://ha-co.net/">skills</a></li>
                             <li><a href="http://ha-co.net/about.html">about</a></li>
                             <li class="active"><a href="http://www.react.pe.kr">library</a></li>
                             <li><a href="http://ha-co.net/contact.html">contact</a></li>
@@ -25,7 +25,7 @@ class LeftContent extends Component {
                     </div>
                 </div>    
                 <div class="logo">
-                    <a href="http://ha-co.net/main.html"><img src={logo} alt="Logo"></img></a>
+                    <a href="http://ha-co.net/"><img src={logo} alt="Logo"></img></a>
                 </div> 
                 <div class="haco-social-btn_wrap">
                     <span class="haco-social-span">SNS</span>
